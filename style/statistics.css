@@ -1,0 +1,67 @@
+.statistics .title-and-icon {
+    padding-top: 3rem;
+}
+/*! Table Statistics */
+.statistics__content {
+    display: none;
+}
+.statistics-table {
+    padding: 3rem 0rem;
+    background-color: #F3F4F4;
+}   
+#statistics-table .rowName {
+    min-width: 170px;
+}
+#statistics-table td {
+    padding: .7rem .5rem;
+}
+#statistics-table td, #statistics-table th, #statistics-table-grades td, #statistics-table-grades th {
+    border: 2px solid #0C90B5;
+}
+#statistics-table .tableRow :first-child {
+    font-weight: bold;
+}
+#statistics-table .max-points{
+    /* border: 2px solid #0C90B5; */
+    border: 2px solid #F5A3C6;
+    z-index: 100;
+}
+.statistics-table .noteParaph {
+    padding-top: 1.5rem;
+    color: #0B94BA;
+}
+.statistics-table .noteParaph span {
+    font-weight: 800;
+    color: #F4A2C5;
+}
+
+/*! Graph Statistics */
+.statistics-charts {
+    padding: 3rem 0rem;
+    background-color: #E7E8E8;
+}
+.statistics-charts .statistics-section-title {
+    margin-bottom: 1.5rem;
+}
+.chart-container .canvasjs-chart-canvas {
+    width: 100%;
+}
+
+.statistics-charts .grades-analytics {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.statistics-charts .canvasjs-chart-canvas {
+    border: 2px solid #0B94BA;
+}
+.canvasjs-chart-credit {
+    display: none;
+}
+
+/*! marks */
+
+#statistics-table-grades {
+    background-color: #fff;
+    margin-bottom: 0rem;
+}

@@ -1,0 +1,144 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="/style/styles.css">
+    <title>Dinamičke tabele u web programiranju</title>
+</head>
+<body class="column-grading">
+    <nav class="sideBar">
+        <div class="logo">
+            <a href="./index.html"><img class="logo-icon" src="/assets/images/logo.png" alt="logo"></a>
+        </div>
+        <div class="links">
+            <a class="home-page" href="./index.html">Početna</a>
+            <a class="home-page" href="./table.html">Tabela</a>
+        </div>
+    </nav> <!-- Sidebar -->
+
+    <div class="global-content">
+
+        <div id="modal-loader" class="text-center modal-loader table-page-loader">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+        </div> <!-- loader -->
+        <section class="column-grading__content">
+            <div class="pb-3 title-and-icon">
+                <div class="container">
+                    <a href="/table.html">
+                        <img src="/assets/icons/back-arrow.svg" class="icon" alt="koran unazad" title="Vratite sa na spisak">
+                    </a>
+                    <h1 class="title text-center">Paleta za ocjenjivanje studenata po koloni</h1>
+                </div> 
+            </div> <!-- naslov -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 note-and-forms">
+                        <div class="grading-notes">
+                            <h5 class="grading-notes__title">Napomene</h5>
+                            <p class="grading-notes__text">Izaberite kolonu i unesite broj indexa studenta kako bi vam se pojavila forma za unos bodova.</p>
+                            <p class="grading-notes__text">Polje "Poništavanje broja bodova" služi za za lakši unos domaćih zadataka. Jer većina studenata dobija isti broj bodova i tada ne treba poništavanje bodova. Dok je za ispite i kolokvijume sigurnije poništiti prethodni unos jer se broj bodova razlikuje.</p>
+                        </div> <!-- napomene -->
+                        <div class="row form input-form">
+                            <div class="col-12 col-md-9 col-lg-7 input-form__one-form">
+                                <div class="form-group">
+                                    <label for="name-of-column">Naziv kolone</label>
+                                    <!-- <input type="text" id="name-of-column" name="text" class="form-input" placeholder=""> -->
+                                    <select name="" id="name-of-column" class="form-control form-input__flex-width">
+                                        <option disabled selected>-- kolone --</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="index-number">Broj indeksa</label>
+                                    <input type="text" id="index-number" name="text" class="form-control form-input form-input__flex-width" placeholder="pr: 123">
+                                </div>
+                                <div class="form-check-button">
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="clear-number">Poništavanje broja bodova</label>
+                                        <input class="form-check-input" type="checkbox"  id="clear-number">
+                                    </div>
+                                    <button onclick="studentSearch()" class="btn btn-secondary">Pretraži</button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div> <!-- forma 1 -->
+                    <div class="col-4 input-form__two-form">
+                        <div id="modal-loader" class="modal-loader column-grading-page-loader">
+                            <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                        </div> <!-- loader -->
+                        <div id="formsGrading" class="two-form__forms">
+                            <!-- <form class="two-form__form">
+                                <h5 class="form__name">'Paša Šulovic' '53/15'</h5>
+                                <div class="form__info">
+                                    <p>Ukupan broj bodova do sada: '32'</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="grade">Polje za unos bodova</label>
+                                    <input type="text" class="form-control" id="grade">
+                                </div>
+                                <button class="btn btn-success">Dodati</button>
+                            </form> -->
+                        </div>
+                    </div> <!-- forma 2 -->
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+           
+        </section> <!-- sadrzaj -->
+    </div>
+
+
+    <!-- Skripte -->
+
+    <!--! Firebase  -->
+
+    <!-- Firebase SDK i biblioteke koje koristimo u projektu -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-storage.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Konfiguracija aplikacije sa firebase-om
+        var firebaseConfig = {
+            apiKey: "AIzaSyD-hzUDULUGC0jVDmNtxHn8nxV0J4D9U7o",
+            authDomain: "dynamic-tables-20b4b.firebaseapp.com",
+            databaseURL: "https://dynamic-tables-20b4b.firebaseio.com",
+            projectId: "dynamic-tables-20b4b",
+            storageBucket: "dynamic-tables-20b4b.appspot.com",
+            messagingSenderId: "535167955662",
+            appId: "1:535167955662:web:4382a94f8277043773569f"
+        };
+        // Inicijalizacija Firebase-a
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+    </script>
+    <!-- firebase projekti -->
+
+
+    <!-- jquery, popper.js and bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- HTML to PDF convert -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+    <!-- projektne skripte -->
+    <script src="/script/calculation.js"></script>
+    <script src="/script/ui.js"></script>
+    <script src="/script/store.js"></script>
+    <script src="/script/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+.column-grading__content {
+    background-color: #F9F9F9;
+    /* text-align: center;  */
+    height: 100%;
+    position: relative;
+    /* background: url('../assets/images/brojevi.jpg');
+    background-size: cover; */
+    
+}
+.column-grading__content::after {
+    background: url('../assets/images/brojevi.jpg');
+    content: '';
+    position: absolute;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    opacity: .3;
+}
+
+.column-grading__content .title-and-icon {
+    padding-top: 3rem;
+    z-index: 2;
+    background: #DDD;
+    -webkit-box-shadow: 6px 4px 11px 6px rgba(0,0,0,0.31); 
+    box-shadow: 6px 4px 11px 6px rgba(0,0,0,0.31);
+    /* opacity: .3; */
+}
+.title-and-icon .icon {
+    cursor: pointer;
+    
+}
+
+.note-and-forms {
+    z-index: 2;
+}
+/* Napomene */
+.grading-notes {
+    margin: 3rem 0;
+    background: #CEE9F1;
+    padding: .7rem;
+    -webkit-box-shadow: 6px 4px 11px 6px rgba(0,0,0,0.31); 
+    box-shadow: 6px 4px 11px 6px rgba(0,0,0,0.31);
+    border-color: #1266f1;
+    border-left: 6px solid;
+    border-radius: 5px;
+}
+.grading-notes__title {
+    font-weight: 800;
+    color: #F4A3C6;
+
+}
+.grading-notes__text {
+    font-size: 1rem;
+    line-height: 1.2rem;
+    margin-bottom: .3rem;
+    font-weight: bold;
+}
+
+/* Forme */
+.input-form {
+    margin: 3rem 0;
+    /* background-color: rgba(11,146,183, 0.1); */
+    background: #E6F4F8;
+    padding: .7rem;
+    -webkit-box-shadow: 6px 4px 11px 6px rgba(0,0,0,0.31); 
+    box-shadow: 6px 4px 11px 6px rgba(0,0,0,0.31);
+    border-color: #1266f1;
+    border-left: 6px solid;
+    border-radius: 5px;
+}
+.input-form__one-form {
+    padding-left: 0px;
+}
+.input-form .form-group {
+    display: flex;
+    justify-content: space-between;
+}
+.input-form label {
+    font-size: .9rem;
+    line-height: 1rem;
+    font-weight: 500;
+    /* min-width: 190px; */
+}
+.input-form .form-check-input {
+    margin: 0;
+    margin-left: 2rem;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+.input-form .form-check {
+    padding-left: 0;
+}
+.form-input__flex-width {
+    flex: 0 0 48%;
+    max-width: 48%;
+    height: 2rem;
+    flex-flow: wrap-reverse;
+    cursor: pointer;
+}
+/* button i checkbox */
+.form-check-button {
+    display: flex;
+    justify-content: space-between;
+}
+.form-check-button .btn{
+    padding: .275rem .7rem;
+    font-size: .9rem;
+}
+
+/* ! Output forme */
+
+.input-form__two-form {
+    z-index: 2;
+    margin-top: 1.5rem;
+
+}
+.two-form__form {
+    background: #E6F4F8;
+    padding: .7rem;
+    -webkit-box-shadow: 6px 4px 11px 6px rgb(0 0 0 / 31%);
+    box-shadow: 6px 4px 11px 6px rgb(0 0 0 / 31%);
+    border-color: #1266f1;
+    border-right: 6px solid;
+    border-radius: 5px;
+    margin: 1.5rem 0;
+
+    /* todo: transition prilikom pojave na displaju */
+    animation: 1s ease-out 0s 1 slideInUp;
+
+}
+.form__name {
+    color: #F4A3C6;   
+}
+.form__info {
+    font-size: .85rem;
+    line-height: 1rem;
+    margin: .6rem 0 1rem 0;
+}
+.form__info span {
+    font-weight: bold;
+}
+.form__form-group {
+    margin-bottom: 0px;
+}
+.form__form-group label, .form__info {
+    font-weight: bold;
+}
+.form__form-group .form-control {
+    height: 2rem;
+}
+.form__btn {
+    align-self: end;
+    text-align: end;
+}
+.form__btn .btn {
+    padding: .275rem .7rem;
+    font-size: .9rem;
+}
+.two-form__forms .error-message {
+    padding: .5rem;
+    background-color: #ffd5e7;
+    color: #0B94BA;
+    -webkit-box-shadow: 6px 4px 11px 6px rgb(0 0 0 / 31%);
+    box-shadow: 6px 4px 11px 6px rgb(0 0 0 / 31%);
+    border-color: #1266f1;
+    border-right: 6px solid;
+    border-radius: 5px;
+    margin: 1.5rem 0;
+    font-weight: bold;
+    animation: 1s ease-out 0s 1 slideInLeft;
+}
+
+/* Loader */
+.column-grading-page-loader {
+    display: none;
+    padding: 0px;
+    color: #0C90B5;
+    text-align: center;
+    position: relative;
+    top: 0;
+}
+.column-grading-page-loader .spinner-border {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+/* ! Animacije */
+@keyframes slideInUp {
+    0% {
+      transform: translateY(150%);
+      opacity: .3;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+      transform: translateX(150%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}

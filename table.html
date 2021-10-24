@@ -1,0 +1,439 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="/style/styles.css">
+    <title>Dinamičke tabele u web programiranju</title>
+</head>
+
+<body>
+    <nav class="sideBar sideBar--table">
+        <div class="logo">
+            <a href="./index.html"><img class="logo-icon" src="/assets/images/logo.png" alt="logo"></a>
+        </div>
+        <div class="links">
+            <div class="links__main-links">
+                <a onclick="setColumnsView()" class="columns" data-toggle="modal" data-target="#exampleModal">Kolone</a>
+                <a class="paremeters" href="/parameters.html">Parametri</a>
+                <a class="paremeters" href="/statistics.html">Statistika</a>
+                <a class="paremeters" href="/columnGrading.html">Ocjenjivanje po koloni</a>
+            </div>
+            <div class="links__off-links">
+                <a class="m-0 ml-4 home-page" href="./index.html">Početna</a>
+            </div>
+        </div>
+    </nav> <!-- Sidebar -->
+    
+    <div class="table-and-statistics global-content">
+
+        <div id="modal-loader" class="text-center modal-loader table-page-loader">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+        </div> <!-- loader -->
+
+        <section class="table-section">
+            <div class="container">
+                <h1 class="title">Tabela</h1>
+                <div class="search">
+                    <input onkeyup="searchTable(this)" type="text" class="search-input form-control" placeholder="Pretraga po broju indexa">
+                </div>
+                <p id="no-result-note" class="no-result-note">Nije pronađen student sa upisanim brojem indexa.</p>
+                <div class="table-container" id="table-container">
+                    <table 
+                        id="primary-table"
+                        class="table table-striped table-bordered table-hover table-sm primary-table sortable"
+                    ></table> <!--! Tabela za upis ocjena !-->
+                </div>
+                <nav aria-label="Page navigation example" class="mt-3 nav-pagination">
+                    <div
+                        onClick="addRow('primary-table')"
+                        title="Dodati kolonu za upis novog studenta" 
+                        class="newRow"
+                    >
+                        <span class="newRow--icon">+</span>
+                    </div>
+                    <ul class="pagination">
+                        <li 
+                            onClick="prevPage()"
+                            id="btn_prev" 
+                            class="page-item"
+                        >
+                            <a class="page-link page-link__prev" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                                </svg>
+                                <span>prethodni</span>
+                            </a>
+                        </li>
+                        <li class="page-item page-number"><a id="page"  class="page-link" href="#"></a></li>
+                        <li
+                            onClick="nextPage()"
+                            id="btn_next" 
+                            class="page-item"
+                        >
+                            <a class="page-link page-link__next" href="#">
+                                <span>sledeći</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                </svg>
+                            </a>
+                        </li>
+    
+                    </ul>
+                </nav>
+            </div>
+        </section>
+        
+        <section id="tablePatterns" class="tablePatterns-section">
+            <div class="container">
+                <h1 class="title">Obrasci za objavu</h1>
+                <h5 class="pt-1 pb-3">Odaberite jedan od ponuđenih obrazaca tabele za štampanje ili kreiranje linka za studente:</h5>
+                <ul class="nav nav-pills mb-2" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link active" 
+                            id="pills-home-tab" 
+                            data-toggle="pill" 
+                            href="#pills-home" 
+                            role="tab" 
+                            aria-controls="pills-home" 
+                            aria-selected="true"
+                        >Evidencija osvojenih poena i prijedlog ocjene</a>
+                    </li>
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link" 
+                            id="pills-profile-tab" 
+                            data-toggle="pill" 
+                            href="#pills-profile" 
+                            role="tab" 
+                            aria-controls="pills-profile" 
+                            aria-selected="false"
+                        >Zaključna ocjena</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a 
+                            class="nav-link" 
+                            id="pills-test-tab" 
+                            data-toggle="pill" 
+                            href="#pills-test" 
+                            role="tab" 
+                            aria-controls="pills-test" 
+                            aria-selected="false"
+                        >Test obrazac</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link" 
+                            id="pills-partial-tab" 
+                            data-toggle="pill" 
+                            href="#pills-partial" 
+                            role="tab"
+                            aria-controls="pills-partial" 
+                            aria-selected="false"
+                        >Kolokvijum obrazac</a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-forms" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <form class="form nav-content-form">
+                            <div class="form-group">
+                                <label>Poslednji korak do formatiranja izabranog obrasca u PDF formatu jeste da kliknete na dugme <strong>Izgled tabele</strong>, a zatim na dugme <strong>Submit</strong> koje se nalazi na dnu prikazane tabele.</label>
+                            </div>
+                            <button onclick="createPdfTable('obr1')" type="button" class="btn btn-primary">Izgled tabele</button>
+                        </form>
+                    </div> <!-- obrazac 1 -->
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <form class="form nav-content-form">
+                            <div class="form-group">
+                                <label>Poslednji korak do formatiranja izabranog obrasca u PDF formatu jeste da kliknete na dugme <strong>Izgled tabele</strong>, a zatim na dugme <strong>Submit</strong> koje se nalazi na dnu prikazane tabele.</label>
+                            </div>
+                            <button onclick="createPdfTable('obr2')" type="button" class="btn btn-primary">Izgled tabele</button>
+                        </form>
+                    </div> <!-- obrazac 2 -->
+                    <!-- <div class="tab-pane fade" id="pills-test" role="tabpanel" aria-labelledby="pills-test-tab">
+                        <form class="form nav-content-form">
+                            <div class="form-group">
+                                <label for="obr3name">Koji test je u pitanju</label>
+                                <input type="text" name="name" class="form-control" id="obr3name" placeholder="Unesite naziv testa (npr: TEST1 ili TEST2...)">
+                            </div>
+                            <div class="form-group">
+                                <label for="obr3hallStudentsCount">Maksimalan broj studenata u jednoj sali</label>
+                                <input type="text" name="hallStudentsCount" class="form-control" id="obr3hallStudentsCount" placeholder="Unisite broj">
+                            </div>
+                            <div class="form-group date" data-provide="datepicker">
+                                <label for="obr3date">Datum polaganja testa</label>
+                                <input type="date" name="date" class="form-control date-withicon datepicker" id="obr3date" data-date-format="dd-mm-yyyy">
+                            </div>
+                            <h5 class="mt-4 mb-4">Dodavanje grupa za test</h5>
+    
+                            <div class="differentGroupsTest" id="differentGroupsTest"></div> 
+                            
+                            <button onclick="addGroup('test')" type="button" class="btn mt-2 mb-4" title="Dodati novu grupu">+</button>
+                            <div class="form-group">
+                                <label>Poslednji korak do formatiranja izabranog obrasca u PDF formatu jeste da kliknete na dugme <strong>Izgled tabele</strong>, a zatim na dugme <strong>Submit</strong> koje se nalazi na dnu prikazane tabele.</label>
+                            </div>
+                            <button onclick="createPdfTable('obr3')" type="button" class="btn btn-primary">Izgled tabele</button>
+                        </form>
+                    </div> -->
+                     <!-- obrazac 3 -->
+                    <div class="tab-pane fade" id="pills-partial" role="tabpanel" aria-labelledby="pills-partial-tab">
+                        <form class="form nav-content-form">
+                            <div class="form-group">
+                                <label for="obr4name">Koji vid provjere znanja je u pitanju</label>
+                                <input type="text" name="name" class="form-control" id="obr4name" placeholder="Unesite naziv testa (npr: Kolokvijum1 ili Završni ispit...)">
+                            </div>
+                            <div class="form-group">
+                                <label for="obr4hallStudentsCount">Maksimalan broj studenata u jednoj sali</label>
+                                <input type="text" name="hallStudentsCount" class="form-control" id="obr4hallStudentsCount" placeholder="Unisite broj">
+                            </div>
+                            <div class="form-group date" data-provide="datepicker">
+                                <label for="obr4date">Datum polaganja</label>
+                                <input type="date" name="date" class="form-control date-withicon" id="obr4date">
+                            </div>
+                            <h5 class="mt-4 mb-4">Dodavanje grupa za polaganje</h5>
+    
+                            <div class="differentGroupsExam" id="differentGroupsExam"></div> <!-- grupe za testove -->
+                            
+                            <button onclick="addGroup('exam')" type="button" class="btn mt-2 mb-4" title="Dodati novu grupu">+</button>
+                            <div class="form-group">
+                                <label>Poslednji korak do formatiranja izabranog obrasca u PDF formatu jeste da kliknete na dugme <strong>Izgled tabele</strong>, a zatim na dugme <strong>Submit</strong> koje se nalazi na dnu prikazane tabele.</label>
+                            </div>
+                            <button onclick="createPdfTable('obr4')" type="button" class="btn btn-primary">Izgled tabele</button>
+                        </form>
+                    </div> <!-- obrazac 4 -->
+                </div>
+            </div>
+        </section> 
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="control-table-dialog">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Upravljanje kolonama</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-body__paraph">Kolone koje se po potrebi setuju u glavnoj tabeli:</p>
+                        <div class="row modal-body__list">
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="t1" value="false" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">Test 1</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="t1" id="t1" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="t2" value="false" id="defaultCheck2">
+                                    <label class="form-check-label" for="defaultCheck2">Test 2</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="t2" id="t2" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="t3" value="false" id="defaultCheck3">
+                                    <label class="form-check-label" for="defaultCheck3">Test 3</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="t3" id="t3" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="t4" value="false" id="defaultCheck4">
+                                    <label class="form-check-label" for="defaultCheck4">Test 4</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="t4" id="t4" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="t5" value="false" id="defaultCheck5">
+                                    <label class="form-check-label" for="defaultCheck5">Test 5</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="t5" id="t5" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="k1r" value="false" id="defaultCheck19">
+                                    <label class="form-check-label" for="defaultCheck19">Kolokvijum 1 redovni</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="k1r" id="k1r" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="k1p" value="false" id="defaultCheck20">
+                                    <label class="form-check-label" for="defaultCheck20">Kolokvijum 1 popravni</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="k1p" id="k1p" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="k2r" value="false" id="defaultCheck6">
+                                    <label class="form-check-label" for="defaultCheck6">Kolokvijum 2 redovni</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="k2r" id="k2r" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="k2p" value="false" id="defaultCheck8">
+                                    <label class="form-check-label" for="defaultCheck8">Kolokvijum 2 popravni</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="k2p" id="k2p" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="exam" value="false" id="defaultCheck21">
+                                    <label class="form-check-label" for="defaultCheck21">Ispit</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="exam" id="exam" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="corrective" value="false" id="defaultCheck22">
+                                    <label class="form-check-label" for="defaultCheck22">Popravni ispit</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="corrective" id="corrective" class="form-check-max-points">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="d1" value="false" id="defaultCheck9">
+                                    <label class="form-check-label" for="defaultCheck9">Domaći 1</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="d1" id="d1" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="d2" value="false" id="defaultCheck10">
+                                    <label class="form-check-label" for="defaultCheck10">Domaći 2</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="d2" id="d2" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="d3" value="false" id="defaultCheck11">
+                                    <label class="form-check-label" for="defaultCheck11">Domaći 3</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="d3" id="3" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="d4" value="false" id="defaultCheck12">
+                                    <label class="form-check-label" for="defaultCheck12">Domaći 4</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="d4" id="d4" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="d5" value="false" id="defaultCheck13">
+                                    <label class="form-check-label" for="defaultCheck13">Domaći 5</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="d5" id="d5" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="l1" value="false" id="defaultCheck14">
+                                    <label class="form-check-label" for="defaultCheck14">Lab 1</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="l1" id="l1" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="l2" value="false" id="defaultCheck15">
+                                    <label class="form-check-label" for="defaultCheck15">Lab 2</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="l2" id="l2" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="l3" value="false" id="defaultCheck16">
+                                    <label class="form-check-label" for="defaultCheck16">Lab 3</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="l3" id="l3" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="l4" value="false" id="defaultCheck17">
+                                    <label class="form-check-label" for="defaultCheck17">Lab 4</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="l4" id="l4" class="form-check-max-points">
+                                </div>
+                                <div class="form-check d-flex justify-content-between">
+                                    <input onchange="columnChange(this)" class="form-check-input additationsColumns" type="checkbox" name="l5" value="false" id="defaultCheck18">
+                                    <label class="form-check-label" for="defaultCheck18">Lab 5</label>
+                                    <input oninput="setMaxPoint(event)" title="max. poeni" type="number" name="l5" id="l5" class="form-check-max-points">
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="pb-1">Napomene:</h5>
+                        <div class="modal-body__note note-primary">
+                            <p class="paraph small mb-1">Kako bi ažurirali vrijednosti iz tabele nakon dodavanja/oduzimanja kolona pritisnite dugme "Sačuvajte izmjene".</p>
+                            <p class="paraph small mb-0">U slučaju da niste kliknuli na dugme "Sačuvajte izmjene" vrijednost uklonjene kolone kod svih studenata biće nepromjenjena.</p>
+                        </div>
+                        <div class="modal-body__note note-info mt-2">
+                            <p class="small mb-0">Pored naziva kolona biće potrebno da se doda maksimalan broj poena za svaku kolonu koja se prikazuje u spisaku.</p>
+                            <p class="small mb-0">Bez podešavanja ovih parametara Statistika neće raditi kako treba.</p>
+                        </div>
+                    
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                            <button type="button" onclick="saveDialogChanges()" class="btn btn-primary">Sačuvajte izmjene</button>
+                        </div>
+                    </div> 
+                </div> <!--! Modal 1 Upravljanje kolonama -->
+
+                <div class="content-forms-dialog">
+                    <div class="modal-header">
+                        <h5 class="modal-title modal-title--table-preview"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <section class="table-info p-4 mb-4">
+                            <p class="font-weight-bold table-info__fakultet"><strong></strong></p>
+                            <p class="table-info__program">
+                                <span>Studijski program: </span>
+                                <span id="output" class="font-weight-bold"><strong></strong></span>
+                            </p>
+                            <div class="row justify-content-between">
+                                <p class="col table-info__source mb-0">
+                                    <span>Predmet: </span>
+                                    <span id="output" class="font-weight-bold"><strong></strong></span>
+                                </p>
+                                <p class="col font-weight-bold table-info__ects mb-0"><strong>Broj ECTS kredita: <span class="output"></span></strong></p>
+                            </div>
+                        </section> <!-- table info -->
+                        <table id="obr-table" class="table table-bordered table-xl obr-table">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table> <!-- 1 i 2 obrazac -->
+                        <div id="obr-multiTable" class="p-3 bg-light obr-multiTable"></div> <!-- 3 i 4 obrazac -->
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button onclick="javascript:convertToPdf();" type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                </div> <!--! Modal 2 Preview tabele izabranog obrasca -->
+            </div>
+        </div>
+    </div>  
+    
+    <!-- Skripte -->
+
+    <!--! Firebase  -->
+
+    <!-- Firebase SDK i biblioteke koje koristimo u projektu -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-storage.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Konfiguracija aplikacije sa firebase-om
+        var firebaseConfig = {
+            apiKey: "AIzaSyD-hzUDULUGC0jVDmNtxHn8nxV0J4D9U7o",
+            authDomain: "dynamic-tables-20b4b.firebaseapp.com",
+            databaseURL: "https://dynamic-tables-20b4b.firebaseio.com",
+            projectId: "dynamic-tables-20b4b",
+            storageBucket: "dynamic-tables-20b4b.appspot.com",
+            messagingSenderId: "535167955662",
+            appId: "1:535167955662:web:4382a94f8277043773569f"
+        };
+        // Inicijalizacija Firebase-a
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+    </script>
+    <!-- firebase projekti -->
+
+
+    <!-- jquery, popper.js and bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- HTML to PDF convert -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+    <!-- projektne skripte -->
+    <script src="/script/calculation.js"></script>
+    <script src="/script/ui.js"></script>
+    <script src="/script/store.js"></script>
+    <script src="/script/app.js"></script>
+    
+</body>
+</html>

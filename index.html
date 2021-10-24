@@ -1,0 +1,142 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/style/styles.css">
+    <title>Diplomski rad</title>
+</head>
+<body>
+    <nav class="sideBar">
+        <div class="logo">
+            <a href="./index.html"><img class="logo-icon" src="/assets/images/logo.png" alt="logo"></a>
+        </div>
+        <div class="links">
+            <a class="home-page" href="./index.html">Početna</a>
+            <a data-toggle="modal" data-target="#student-services" class="student-service-page" href="#">Pristup podacima</a>
+        </div>
+    </nav> <!-- Sidebar -->
+    
+    <div id="page-loader" class="text-center table-page-loader">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+    </div> <!-- loader -->
+    <section class="home global-content">
+        <div class="container">
+            <div class="content">
+                <h1 class="header-title">Primjer Dinamičkih Tabela u WEB Programiranju</h1>
+                <h3>Posjetite pristupnu bazu po novi spisak ili upravljajte postojećim.</h3>
+                <div class="buttons">
+                    <button onclick="window.location.href='/table.html'" type="button" class="btn btn-secondary first-btn" id="tableListBtn">Postojeći spisak</button>
+                    <button data-toggle="modal" data-target="#student-services" type="button" class="btn btn-secondary second-btn">Pristup podacima</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="student-services" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Dobrodošli u pristupnu bazu</h5>
+                    <button onclick="closeStudentServices()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div id="content-basic" class="modal-body content-basic">
+                    <p>Princip rada pristupne baze je podijeljen u dva različita aspekta.</p>
+                    <p>Prvi je izbog godine i učitavanje(upload) .xml fajlova(predmeta) za tu godinu sa informacijama o predmetu i spiskom studenata koji slušaju taj predmet.</p>
+                    <p>Drugi aspekt je izbor godine odabir jednog predmeta iz te godine i studenti koji prate odabrani predmet biće upisani u glavnu tabelu(spisak).</p>            
+                    
+                    <hr>
+
+                    <div class="form-group">
+                        <label class="service-years__label" for="service-years">Izaberite godinu studija</label>
+                        <select name="service-years" id="service-years" class="form-control content-basic__choose-year">
+                            <option disabled selected>------</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                    
+                    <div class="progress" id="progress-div">
+                        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> <!-- transfering file to storage -->
+                </div> <!-- content one -->
+
+                <div id="modal-loader" class="text-center modal-loader student-services-loader">
+                    <div class="spinner-border" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                </div> <!-- loader -->
+
+                <div class="modal-body content-list">
+                    <p style="margin-bottom: 0px;">Lista predmeta za izabranu godinu koji su dostupni u pristupnoj bazi.</p>
+                    <p>Izaberite predmet kojim želite da upravljate:</p>
+                    <ol id="sources-list" class="list-group"></ol>
+                </div><!-- content two -->
+
+                <div class="modal-footer">
+                    <div class="row justify-content-between">
+                        <div class="col-5 custom-file">
+                            <input onchange="uploadSource(event)" type="file" class="custom-file-input" id="validatedCustomFile">
+                            <label class="custom-file-label" for="validatedCustomFile">Izaberite fajl...</label>
+                        </div>
+                        <button id="get-source-btn" onclick="getSourcesList()" type="button" class="col-4 btn btn-secondary">Odabir predmeta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skripte -->
+
+    <!--! Firebase  -->
+
+    <!-- Firebase SDK i biblioteke koje koristimo u projektu -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-storage.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Konfiguracija aplikacije sa firebase-om
+        var firebaseConfig = {
+            apiKey: "AIzaSyD-hzUDULUGC0jVDmNtxHn8nxV0J4D9U7o",
+            authDomain: "dynamic-tables-20b4b.firebaseapp.com",
+            databaseURL: "https://dynamic-tables-20b4b.firebaseio.com",
+            projectId: "dynamic-tables-20b4b",
+            storageBucket: "dynamic-tables-20b4b.appspot.com",
+            messagingSenderId: "535167955662",
+            appId: "1:535167955662:web:4382a94f8277043773569f"
+        };
+        // Inicijalizacija Firebase-a
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+    </script>
+    <!-- firebase projekti -->
+
+    <!-- jquery, popper.js and bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+
+    <!-- projektne skripte -->
+    <script src="/script/store.js"></script>
+    <script src="/script/calculation.js"></script>
+    <script src="/script/ui.js"></script>
+    <script src="/script/app.js"></script>
+</body>
+</html>

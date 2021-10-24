@@ -1,0 +1,14 @@
+/* Registracija fontova */
+@font-face {
+    font-family: 'LeagueGothic';
+    font-size: normal;
+    font-weight: 700;
+    src: url('./LeagueGothic-Regular.otf');
+};
+
+@font-face {
+    font-family: 'Raleway';
+    font-size: normal;
+    font-weight: 700;
+    src: url('./Raleway-Regular.ttf')
+}

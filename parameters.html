@@ -1,0 +1,234 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/style/styles.css">
+    <title>Dinamičke tabele u web programiranju</title>
+</head>
+<body class="parameters">
+    <nav class="sideBar">
+        <div class="logo">
+            <a href="./index.html"><img class="logo-icon" src="/assets/images/logo.png" alt="logo"></a>
+        </div>
+        <div class="links">
+            <a class="home-page" href="./index.html">Početna</a>
+            <a class="home-page" href="./table.html">Tabela</a>
+        </div>
+    </nav> <!-- Sidebar -->
+
+    <div class="global-content"> <!-- Global content -->
+        <div class="container global-content__parameters">
+            <div class="title-and-icon">
+                <a href="/table.html">
+                    <img src="/assets/icons/back-arrow.svg" class="icon" alt="koran unazad" title="Vratite sa na spisak">
+                </a>
+                <!-- <h1 class="title text-center">Parametri softvera za unos bodova</h1> -->
+                <h1 class="title text-center">Upravljanje tabelom</h1>
+            </div>
+            <div class="row content-and-image">
+                <div class="col-12 col-md-6 content">
+                    <table class="table table-bordered table-sm columnsTable">
+                        <p class="mb-0">Nazivi kolona moraju biti u skladu sa spiskom.</p>
+                        <p class="danger">VELIKO SLOVO JE OBAVEZNO!</p>
+                        <tbody>
+                            <tr>
+                                <td class="text-right">Kolona sa brojem indeksa</td>
+                                <th scope="row" id="indexColumn" class="text-center indexColumn">index</th>
+                            </tr>
+                            <tr>
+                                <td class="text-right">Kolona sa godinom upisa</td>
+                                <th scope="row" id="enrollmentYearColumn" class="text-center enrollmentYearColumn">God</th>
+                            </tr>
+                            <tr>
+                                <td class="text-right">Kolona sa imenom</td>
+                                <th scope="row" id="nameColumn" class="text-center nameColumn">Prezime i ime</th>
+                            </tr>
+                        </tbody>
+                    </table> <!-- tabela za setovanje parametara vezano za kolone -->
+                    
+                    <table id="rowTable" class="table table-bordered table-sm rowTable">
+                        <p class="mb-0">Sva pretraživanja vrše se u ovom opsegu redova.</p>
+                        <p>Podrazumijeva se da je vrsta iznad prvog studenta zaglavlje.</p>
+                        <tbody>
+                            <tr>
+                                <td class="text-right">Vrsta prvog studenta</td>
+                                <th scope="row" class="text-center firstStudent">2</th>
+                            </tr>
+                            <tr>
+                                <td class="text-right">Vrsta poslednjeg studenta</td>
+                                <th scope="row" id="lastStudent" class="text-center lastStudent"></th>
+                            </tr>
+                        </tbody>
+                    </table> <!-- tabela za setovanje parametara broja vrsta -->
+    
+                    <div class="caseTableInfo">
+                        <p>Informacije o predmetu</p>
+                        <p>Predmetni nastavnik i broj ECTS kredita se upisuje ručno, dok se ostale informacije kupe iz studentske službe.</p>
+                        <p><span class="notes">Napomena: </span>Nakon upisa pritisnite <strong>ENTER</strong> kako bi se vrijednost sačuvala.</p>
+                    </div>
+                    <table class="table table-bordered table-sm caseTable">
+                        <tbody>
+                            <tr id="faculty">
+                                <td class="text-right">Fakultet:</td>
+                                <th scope="row" class="text-ceter"></th>
+                            </tr>
+                            <tr id="studyYear">
+                                <td class="text-right">Studijska godina:</td>
+                                <th scope="row" class="text-ceter"></th>
+                            </tr>
+                            <tr id="program">
+                                <td class="text-right">Studijski program:</td>
+                                <th scope="row" class="text-ceter"></th>
+                            </tr>
+                            <tr id="source">
+                                <td class="text-right">Naziv predmeta:</td>
+                                <th scope="row" class="text-ceter"></th>
+                            </tr>
+                            <tr id="professor">
+                                <td class="text-right">Predmetni nastavnik:</td>
+                                <th 
+                                    onkeyup="writeRemainingSourceInfo(event)" 
+                                    scope="row" 
+                                    class="text-ceter" 
+                                    contenteditable="true"
+                                    title="Nakon upisa pritisnite ENTER kako bi se vrijednost sačuvala"
+                                ></th>
+                            </tr>
+                            <tr id="ectsCount">
+                                <td class="text-right">Broj ECTS kredita:</td>
+                                <th
+                                    onkeyup="writeRemainingSourceInfo(event)" 
+                                    scope="row"
+                                    class="text-ceter" 
+                                    contenteditable="true"
+                                    title="Nakon upisa pritisnite ENTER kako bi se vrijednost sačuvala"
+                                ></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12  col-md-6 image">
+                    <img src="/assets/images/paremeters.png" class="img" alt="parameters">
+                </div>
+            </div>
+            
+            <div class="grades-container">
+                <div class="pt-3 pb-3 d-block">Definišite minimalan broj bodova za svaku ocjenu u prvoj tabeli i sačuvajte izmjene u koliko ste ih uradili.</div>
+                <div class="row grades">
+                    <table class="table table-bordered col-12 col-sm-4 table-sm gradesTable">
+                        <thead>
+                            <th class="text-center" scope="col">Bodovi</th>
+                            <th class="text-center" scope="col">Ocjena</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="evaluationF" class="text-center" contenteditable="true">0</td>
+                                <td>F (nedovoljan)</td>
+                            </tr>
+                            <tr>
+                                <td id="evaluationE" class="text-center" contenteditable="true">0</td>
+                                <td>E (dovoljan)</td>
+                            </tr>
+                            <tr>
+                                <td id="evaluationD" class="text-center" contenteditable="true">0</td>
+                                <td>D (zadovoljavajući)</td>
+                            </tr>
+                            <tr>
+                                <td id="evaluationC" class="text-center" contenteditable="true">0</td>
+                                <td>C (dobar)</td>
+                            </tr>
+                            <tr>
+                                <td id="evaluationB" class="text-center" contenteditable="true">0</td>
+                                <td>B (vrlodobar)</td>
+                            </tr>
+                            <tr>
+                                <td id="evaluationA" class="text-center" contenteditable="true">0</td>
+                                <td>A (odličan)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="col-12 col-sm-4 gradesList">
+                        <thead>
+                            <th class="text-right" scope="col">Ocijena</th>
+                            <th class="text-center" scope="col">Slovima</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-right">5</td>
+                                <td class="text-center">(pet)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">6</td>
+                                <td class="text-center">(šest)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">7</td>
+                                <td class="text-center">(sedam)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">8</td>
+                                <td class="text-center">(osam)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">9</td>
+                                <td class="text-center">(devet)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">10</td>
+                                <td class="text-center">(deset)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-12 col-sm-4 button">
+                        <button type="button" onclick="saveEvaluations('gradesTable')" class="btn btn-primary">Sačuvaj izmjene</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Skripte -->
+
+    <!--! Firebase  -->
+
+    <!-- Firebase SDK i biblioteke koje koristimo u projektu -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-storage.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Konfiguracija aplikacije sa firebase-om
+        var firebaseConfig = {
+            apiKey: "AIzaSyD-hzUDULUGC0jVDmNtxHn8nxV0J4D9U7o",
+            authDomain: "dynamic-tables-20b4b.firebaseapp.com",
+            databaseURL: "https://dynamic-tables-20b4b.firebaseio.com",
+            projectId: "dynamic-tables-20b4b",
+            storageBucket: "dynamic-tables-20b4b.appspot.com",
+            messagingSenderId: "535167955662",
+            appId: "1:535167955662:web:4382a94f8277043773569f"
+        };
+        // Inicijalizacija Firebase-a
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+    </script>
+    <!-- firebase projekti -->
+
+
+    <!-- jquery, popper.js and bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+    <!-- projektne skripte -->
+    <script src="/script/store.js"></script>
+    <script src="/script/calculation.js"></script>
+    <script src="/script/ui.js"></script>
+    <script src="/script/app.js"></script>
+</body>
+</html>

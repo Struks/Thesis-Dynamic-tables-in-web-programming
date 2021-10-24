@@ -1,0 +1,100 @@
+.parameters {
+    /* background-color: #D5EDF7; */
+}
+.global-content__parameters {
+    padding: 3rem 0rem;
+}
+.global-content__parameters .content-and-image {
+    margin-top: 3rem;
+}
+.title-and-icon {
+    position: relative;
+}
+.icon {
+    width: 30px;
+    height: 50px;
+    position: absolute; 
+}
+.icon:hover {
+    opacity: .7;
+    cursor: pointer;
+}
+/* tabele */
+.columnsTable , .rowTable{
+    background-color: #D6EEFA;
+    width: 270px;
+}
+.caseTable {
+    background-color: #D6EEFA;
+}
+.caseTableInfo {
+    margin-top: 2rem;
+}
+.caseTableInfo :first-child {
+    margin-bottom: 0px;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+.caseTableInfo .notes {
+    font-weight: 700;
+    color: #EF4989;
+}
+.columnsTable tr, .columnsTable td {
+    border: 2px solid #212529;
+    vertical-align: middle;
+}
+.rowTable tr, .rowTable td {
+    border: 2px solid #212529
+}
+.rowTable .lastStudent {
+    vertical-align: middle;
+}
+.caseTable tr, .caseTable td {
+    border: 2px solid #212529
+}
+.indexColumn, 
+.enrollmentYearColumn, 
+.nameColumn,
+.firstStudent,
+.lastStudent {
+    width: 50px;
+    
+}
+
+/* table sa bodovima */
+.grades {
+    margin: 0px;
+}
+.gradesTable {
+    max-width: 240px;
+}
+.gradesTable th{
+   background-color: #FACEE1;
+   border: 2px solid #212529
+}
+.gradesTable td {
+   border: 2px solid #212529
+}
+
+/* lista sa ocjenama */
+
+.gradesList td {
+    padding-top: .7rem;
+}
+
+/* cell loader */
+
+/* .table-page-loader {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    display: none;
+} */
+.global-content .table-cell-loader {
+    display: block;
+    padding: 0px;
+}
+.table-cell-loader .spinner-border {
+    width: 13px;
+    height: 13px;
+}

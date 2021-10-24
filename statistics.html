@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="/style/styles.css">    
+    <title>Dinamičke tabele u web programiranju</title>
+</head>
+<body class="statistics">
+    <nav class="sideBar">
+        <div class="logo">
+            <a href="./index.html"><img class="logo-icon" src="/assets/images/logo.png" alt="logo"></a>
+        </div>
+        <div class="links">
+            <a class="home-page" href="./index.html">Početna</a>
+            <a class="home-page" href="./table.html">Tabela</a>
+        </div>
+    </nav> <!-- Sidebar -->
+
+    <div class="global-content"> <!-- Global content -->
+
+        <div id="modal-loader" class="text-center modal-loader table-page-loader">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+        </div> <!-- loader -->
+
+        <div class="statistics__content">
+            <div class="container">
+                <div class="pb-3 title-and-icon">
+                    <a href="/table.html">
+                        <img src="/assets/icons/back-arrow.svg" class="icon" alt="koran unazad" title="Vratite sa na spisak">
+                    </a>
+                    <!-- <h1 class="title text-center">Parametri softvera za unos bodova</h1> -->
+                    <h1 class="title text-center">Statistika</h1>
+                </div>
+            </div>
+        
+            <section class="statistics-table">
+                <div class="container">
+                    <h3 class="statistics-section-title font-weight-bold pb-2">Tabela</h3>
+                    <div class="table-container">
+                        <table 
+                            id="statistics-table"
+                            class="table table-striped table-bordered table-hover table-sm primary-table sortable"
+                        ></table> 
+                    </div>
+                    <p class="noteParaph"><span>Napomena:</span> Vrijednosti za vrstu <em>Maksimalno bodova</em> se unose ručno. Od nje direktno zavise vrijednosti poslednje tri vrste.</p>
+                </div>
+            </section> 
+    
+            <section class="statistics-charts">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-7 chart-container">
+                            <h3 class="statistics-section-title font-weight-bold pb-2">Grafikon</h3>
+                            <div class="" id="chartContainer" style="height: 387px; width: 100%;"></div>
+                        </div>
+                        <div class="grades-analytics col-12 col-md-5">
+                            <h3 class="statistics-section-title font-weight-bold pb-2">Ocjene</h3>
+                            <table id="statistics-table-grades" class="table"></table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    <!-- Skripte -->
+
+    <!--! Firebase  -->
+
+    <!-- Firebase SDK i biblioteke koje koristimo u projektu -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-storage.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Konfiguracija aplikacije sa firebase-om
+        var firebaseConfig = {
+            apiKey: "AIzaSyD-hzUDULUGC0jVDmNtxHn8nxV0J4D9U7o",
+            authDomain: "dynamic-tables-20b4b.firebaseapp.com",
+            databaseURL: "https://dynamic-tables-20b4b.firebaseio.com",
+            projectId: "dynamic-tables-20b4b",
+            storageBucket: "dynamic-tables-20b4b.appspot.com",
+            messagingSenderId: "535167955662",
+            appId: "1:535167955662:web:4382a94f8277043773569f"
+        };
+        // Inicijalizacija Firebase-a
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+    </script>
+    <!-- firebase projekti -->
+
+    <!-- canvas Chart -->
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <!-- jquery, popper.js and bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+    <!-- projektne skripte -->
+    <script src="/script/calculation.js"></script>
+    <script src="/script/ui.js"></script>
+    <script src="/script/store.js"></script>
+    <script src="/script/app.js"></script>
+</body>
+</html>

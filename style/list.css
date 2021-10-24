@@ -1,0 +1,363 @@
+/*!  CSS za side bar*/
+.sideBar--table .links {
+    display: flex;
+    height: 75%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.links__off-links a {
+    font-size: .9rem !important;
+    font-weight: 700;
+    color: #E298B8 !important;
+}
+
+/*!  CSS za modal*/
+.modal-body__paraph {
+    font-size: 1.1rem;
+}
+.modal-body__note {
+    padding: 10px;
+    border-left: 6px solid;
+    border-radius: 5px;
+}
+.note-primary {
+    background-color: #e1ecfd;
+    border-color: #1266f1;
+}
+.note-info {
+    background-color: #e1f6fc;
+    border-color: #39c0ed;
+}
+.modal-body__list {
+    margin-bottom: 1rem;
+}
+.form-check-max-points {
+    margin: 2px 0px;
+    border: 1px dashed #ced4da;
+    font-size: .8rem;
+    min-width: 50px !important;
+    max-width: 50px !important;
+}
+.form-check-max-points:focus {
+    border: 1px solid #ced4da;
+}
+/* css za obrasce */
+.table-info__ects {
+    text-align: right;
+}
+
+.table-section {
+    padding: 3rem 0rem;
+    display: none;
+}
+
+/*! CSS koji je tiče isključivo liste, tj. tabele */
+.table-container {
+    overflow: auto;
+    max-height: 665px;
+    margin-top: 1rem;
+}
+/* remove button */
+.table-and-statistics .removeAddRow {
+    text-align: center;
+    background-color: #fff;
+} 
+.removeAddRow .btnRemove {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    border-radius: 10em;
+    padding: .5rem 1.2rem;
+    font-size: .64rem;
+}
+.removeAddRow .btnAdd :hover {
+    outline: 0;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    border-color: #bd2130;
+}
+/* add button */
+.removeAddRow .btnAdd {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    border-radius: 10em;
+    padding: .5rem 1.2rem;
+    font-size: .64rem;
+}
+.removeAddRow .btnAdd :hover {
+    outline: 0;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    border-color: #bd2130;
+}
+
+.table-and-statistics .tableRow td {
+    padding: 10px 10px;
+}
+/* update button */
+.removeAddRow .btnUpdate {
+    border-radius: 10em;
+    padding: .4rem .6rem;
+}
+
+.display-none {
+    display: none;
+}
+
+/* button za dodavanje vrste za upisivanje studenta */
+.newRow {
+    padding: .5rem 1rem;
+    background-color: #007BFF;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.5rem;
+    cursor: pointer;
+    max-width: max-content;
+}
+.newRow:hover {
+    opacity: .8;
+}
+
+/* statička širina svih kolona */
+.primary-table th {
+    padding: 10px;
+    text-align: center;
+}
+.primary-table td {
+    text-align: center;
+}
+.primary-table #index, #dkl, #year {
+    min-width: 90px;
+    max-width: 90px;
+}
+.primary-table #name {
+    min-width: 200px;
+    max-width: 200px;
+}
+.primary-table #number, #t1, #t2, #t3, #t4, #t5, #d1, #d2, #d3, #d4, #d5, #l1, #l2, #l3, #l4, #l5, #k1, #k2 {
+    min-width: 75px;
+    max-width: 75px;
+}
+
+.primary-table #k1r, #k1p, #k2r, #k2p, #exam, #sum {
+    min-width: 90px;
+    max-width: 90px;
+}
+.primary-table #t, #homeworks {
+    min-width: 110px;
+    max-width: 110px;
+}
+.primary-table #labs, #regular, #corrective {
+    min-width: 150px;
+    max-width: 150px;
+}
+.primary-table .buttons {
+    min-width: 150px;
+    max-width: 150px;
+}
+.primary-table #mark {
+    min-width: 100px;
+    max-width: 100px;
+}
+  
+/* align left kada  kliknemo na kolonu za upis info*/
+.primary-table td:focus {
+    text-align: left;
+}
+
+.primary-table td {
+    vertical-align: middle;
+}
+
+/* search */
+.no-result-note {
+    color: #EC9DC0;
+    font-size: .9rem;
+    margin-top: 4px;
+    display: none;
+}
+
+/* postavljanje sort ikonica u head vrsti */
+th {
+    vertical-align: middle;
+}
+th.index, th.buttons:hover  {
+    background-color: unset;
+    box-shadow: unset;
+}
+th .cell-content {
+    display: flex;
+    justify-content: space-around;
+}
+th .icons {
+    align-self: center;
+}
+th .bi {
+    display: block;
+    /* width: 9px;
+    height: 9px; */
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+    z-index: 10;
+}
+th .bi:hover {
+    cursor: pointer;;
+    fill: #0B94BA !important;
+    box-shadow: -1px 4px 8px 0px rgba(152,152,152,0.75) !important;
+    -webkit-box-shadow: -1px 4px 8px 0px rgba(152,152,152,0.75);
+    -moz-box-shadow: -1px 4px 8px 0px rgba(152,152,152,0.75);
+}
+/* *Pagination */
+.nav-pagination {
+    display: flex;
+    justify-content: space-between;
+}
+.pagination {
+    justify-content: flex-end;
+    margin-bottom: 0px;
+}
+/* svi linkovi */
+.pagination .page-link {
+    color: #0B94BA;
+    padding: .5rem .5rem;
+    border: unset;
+}
+.pagination .page-link:focus {
+    box-shadow: unset;
+}
+.pagination .page-link:hover {
+    background-color: unset;
+}
+.pagination .page-link span{
+    font-size: .7rem;
+    font-weight: 600;
+}
+/* pojedinacno */
+.pagination .page-link__prev svg {
+    margin-right: 6px;
+    fill: #E298B8;
+}
+.page-link__prev:hover, .page-link__next:hover > span{
+    color: #E298B8;
+}
+.pagination .page-link__next svg {
+    margin-left: 6px;
+    fill: #E298B8;
+}
+/* broj strane */
+.page-number {
+    align-self: center;
+    margin: auto .5rem;
+}
+.page-number .page-link {
+    font-size: .8rem;
+    padding: .3rem .6rem;
+    border: 1px solid #0B94BA;
+    z-index: 3;
+    color: #E298B8;
+    border-radius: 25px;
+    align-self: center;
+}
+.page-number .page-link:hover {
+    cursor: default;
+}
+/* nedostupni buttoni */
+.no-more-prev, .no-more-next {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: no-drop;
+}
+
+/*! CSS za obrasce tabele  */
+.tablePatterns-section {
+    padding: 3rem 0rem;
+    background-color: #F3F4F4;
+    display: none;
+}
+.tablePatterns-section .nav {
+    justify-content: space-between;
+}
+.nav-pills .nav-link.active {
+    background-color: #0B94BA;
+}
+.tablePatterns-section .nav-link {
+    color: #0B94BA;
+}
+.tablePatterns-section .nav-link:hover {
+    background-color: #0B94BA;
+    border-radius: .25rem;
+    color: #fff;
+}
+/* tabela */
+.obr-table th, td {
+    vertical-align: middle !important;
+    text-align: center;
+}
+
+/* forme */
+.tab-forms {
+    max-width: 500px;
+    padding: 1.5rem;
+    background-color: aliceblue;
+    border-left: 3px solid #EC9DC0;
+    margin-top: 3rem;
+}
+.tab-forms .form {
+    margin-bottom: 0px;
+}
+/* * grupe za kolokvijum i test * */
+.nav-content-form .btn {
+    border-radius: 0px;
+    background-color: #007BFF;
+    color: #fff;
+    padding: .275rem .75rem;
+    font-weight: 700;
+}
+.nav-content-form .btn:hover {
+    opacity: .8;
+}
+.differentGroups__group {
+    margin: 1rem;
+    padding: .4rem 1rem 1rem 1rem;
+    background-color: #fff;
+    -webkit-box-shadow: -2px 2px 8px 4px rgba(0,0,0,0.19); 
+    box-shadow: -2px 2px 8px 4px rgba(0,0,0,0.19);
+}
+.differentGroups__group .form-group {
+    margin: 0rem;
+}
+.differentGroups__group input, label {
+    font-size: .8rem;
+}
+.differentGroups__group .close {  /* close ikonica */
+    visibility: hidden;
+}
+.differentGroups__group:hover .close {
+    visibility: visible;
+}
+/* preview tabele */
+.obr-multiTable {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+.obr-multiTable .orb-table {
+    max-width: 380px;
+    min-width: 380px;
+    background-color:oldlace;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+.obr-multiTable .orb-table th {
+    text-align: center;
+}
+
+/* loader */
+
+.table-page-loader {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    display: none;
+}
+.table-page-loader .spinner-border {
+    width: 4rem;
+    height: 4rem;
+}
+
+
