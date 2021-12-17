@@ -6,7 +6,7 @@ class Firestore {
         let tableName = source ? source : '';
         let students = [];
         try {
-            await db.collection(tableName).orderBy('number').get().then(querySnapshot => {
+            await db.collection(tableName).orderBy('number', 'asc').get().then(querySnapshot => {
                 querySnapshot.forEach(doc => {
                     students.push({
                         ...doc.data(),
@@ -162,7 +162,7 @@ class Firestore {
             //progress child
             const progressBar = document.getElementById('progress-bar');
             progressBar.style.width = process + '%';
-            progressBar.innerText = process;
+            progressBar.innerText = process + '%';
 
             if(process === 100) {
                 setTimeout(() => {

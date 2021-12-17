@@ -2,7 +2,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link 
+        rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" 
+        crossorigin="anonymous"
+    >
     <link rel="stylesheet" type="text/css" href="/style/styles.css">
     <title>Diplomski rad</title>
 </head>
@@ -25,7 +29,7 @@
     <section class="home global-content">
         <div class="container">
             <div class="content">
-                <h1 class="header-title">Primjer Dinamičkih Tabela u WEB Programiranju</h1>
+                <h1 class="header-title">Primjer Dinamičkih Tabela u Web Programiranju</h1>
                 <h3>Posjetite pristupnu bazu po novi spisak ili upravljajte postojećim.</h3>
                 <div class="buttons">
                     <button onclick="window.location.href='/table.html'" type="button" class="btn btn-secondary first-btn" id="tableListBtn">Postojeći spisak</button>
@@ -48,8 +52,8 @@
 
                 <div id="content-basic" class="modal-body content-basic">
                     <p>Princip rada pristupne baze je podijeljen u dva različita aspekta.</p>
-                    <p>Prvi je izbog godine i učitavanje(upload) .xml fajlova(predmeta) za tu godinu sa informacijama o predmetu i spiskom studenata koji slušaju taj predmet.</p>
-                    <p>Drugi aspekt je izbor godine odabir jednog predmeta iz te godine i studenti koji prate odabrani predmet biće upisani u glavnu tabelu(spisak).</p>            
+                    <p>Prvi je izbor godine i učitavanje(upload) .xml fajlova(predmeta) za tu godinu sa informacijama o predmetu i spiskom studenata koji slušaju taj predmet.</p>
+                    <p>Drugi aspekt je izbor godine i odabir jednog predmeta iz te godine. Studenti koji prate odabrani predmet biće upisani u glavnu tabelu(spisak).</p>            
                     
                     <hr>
 
@@ -78,7 +82,7 @@
                 </div> <!-- loader -->
 
                 <div class="modal-body content-list">
-                    <p style="margin-bottom: 0px;">Lista predmeta za izabranu godinu koji su dostupni u pristupnoj bazi.</p>
+                    <p style="margin-bottom: 0px;">Lista predmeta koji su dostupni u pristupnoj bazi za izabranu godinu studija.</p>
                     <p>Izaberite predmet kojim želite da upravljate:</p>
                     <ol id="sources-list" class="list-group"></ol>
                 </div><!-- content two -->
@@ -100,13 +104,10 @@
 
     <!--! Firebase  -->
 
-    <!-- Firebase SDK i biblioteke koje koristimo u projektu -->
+    <!-- Firebase SDK i proizvodi koje koristimo u projektu -->
     <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.0/firebase-storage.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
 
     <script>
         // Konfiguracija aplikacije sa firebase-om
@@ -125,12 +126,26 @@
         const db = firebase.firestore();
         const storage = firebase.storage();
     </script>
+
+    
     <!-- firebase projekti -->
 
     <!-- jquery, popper.js and bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script 
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+        crossorigin="anonymous"
+    ></script>
+    <script 
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" 
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" 
+        crossorigin="anonymous"
+    ></script>
+    <script 
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" 
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" 
+        crossorigin="anonymous"
+    ></script>
     
 
     <!-- projektne skripte -->

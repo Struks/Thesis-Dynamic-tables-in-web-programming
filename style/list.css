@@ -12,6 +12,9 @@
 }
 
 /*!  CSS za modal*/
+.modal-body {
+    overflow: auto;
+}
 .modal-body__paraph {
     font-size: 1.1rem;
 }
@@ -61,11 +64,12 @@
 .table-and-statistics .removeAddRow {
     text-align: center;
     background-color: #fff;
+    padding: .5rem 1rem;
 } 
 .removeAddRow .btnRemove {
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     border-radius: 10em;
-    padding: .5rem 1.2rem;
+    padding: .5rem 1rem;
     font-size: .64rem;
 }
 .removeAddRow .btnAdd :hover {
@@ -77,7 +81,7 @@
 .removeAddRow .btnAdd {
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     border-radius: 10em;
-    padding: .5rem 1.2rem;
+    padding: .5rem 1rem;
     font-size: .64rem;
 }
 .removeAddRow .btnAdd :hover {
@@ -92,7 +96,7 @@
 /* update button */
 .removeAddRow .btnUpdate {
     border-radius: 10em;
-    padding: .4rem .6rem;
+    padding: .324rem .85rem;
 }
 
 .display-none {
@@ -120,6 +124,7 @@
 }
 .primary-table td {
     text-align: center;
+    line-height: 1rem;
 }
 .primary-table #index, #dkl, #year {
     min-width: 90px;
@@ -130,8 +135,14 @@
     max-width: 200px;
 }
 .primary-table #number, #t1, #t2, #t3, #t4, #t5, #d1, #d2, #d3, #d4, #d5, #l1, #l2, #l3, #l4, #l5, #k1, #k2 {
-    min-width: 75px;
-    max-width: 75px;
+    min-width: 50px;
+    max-width: 50px;
+    position: relative;
+    /* pmin-width: 100%;
+    max-height: 50px !important;
+    min-height: 50px;
+    padding-top: 25%; */
+    justify-content: center; 
 }
 
 .primary-table #k1r, #k1p, #k2r, #k2p, #exam, #sum {
@@ -157,11 +168,13 @@
   
 /* align left kada  kliknemo na kolonu za upis info*/
 .primary-table td:focus {
-    text-align: left;
+    /* text-align: left;
+    display: inline-block;
+    padding-bottom: 27%; */
 }
 
 .primary-table td {
-    vertical-align: middle;
+    /* vertical-align: middle; */
 }
 
 /* search */
@@ -174,7 +187,7 @@
 
 /* postavljanje sort ikonica u head vrsti */
 th {
-    vertical-align: middle;
+    /* vertical-align: middle; */
 }
 th.index, th.buttons:hover  {
     background-color: unset;

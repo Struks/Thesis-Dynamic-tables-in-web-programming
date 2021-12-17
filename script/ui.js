@@ -1065,16 +1065,17 @@ class Parameters {
 
         // provjeravamo koje provjere znanja ukljucujemo u tabelu
         for(let property in getColumns) {
-            if(property.includes('d') && getColumns[property] === true) {
+            if(['d1', 'd2', 'd3', 'd4', 'd5'].includes(property) && getColumns[property] === true) {
                 homeworkCount += 1;
-            } else if(property.includes('t') && getColumns[property] === true) {
+            } else if(['t1', 't2', 't3', 't4', 't5'].includes(property) && getColumns[property] === true) {
                 testsCount += 1;
-            } else if(property.includes('l') && getColumns[property] === true) {
+            } else if(['l1', 'l2', 'l3', 'l4', 'l5'].includes(property) && getColumns[property] === true) {
                 labsCount += 1;
             } else if(property.includes('k2r') && getColumns[property] === true) {
                 k2Count += 1;
             }
         }
+        console.log('labsCount', labsCount);
 
         //* Obrazac 1 template
         // todo: interesantan kod za diplomski rad 
@@ -1103,19 +1104,19 @@ class Parameters {
                     <tr>
                         <th id="d1">I</th>
                         <th id="d2">II</th>
-                        <th id="d3">II</th>
+                        <th id="d3">III</th>
                         <th id="d4">IV</th>
                         <th id="d5">V</th>
 
                         <th id="t1">I</th>
                         <th id="t2">II</th>
-                        <th id="t3">II</th>
+                        <th id="t3">III</th>
                         <th id="t4">IV</th>
                         <th id="t5">V</th>
 
                         <th id="l1">I</th>
                         <th id="l2">II</th>
-                        <th id="l3">II</th>
+                        <th id="l3">III</th>
                         <th id="l4">IV</th>
                         <th id="l5">V</th>
 
@@ -1500,36 +1501,36 @@ class Parameters {
 
             <tr class="tr tableRow max-points">
                 <td id="statistics-name">Maksimalno bodova</td>
-                <td contenteditable="true" id="t1">${this.cellNumberFormat(statsData.maxPoints.t1)}</td>
-                <td contenteditable="true" id="t2">${this.cellNumberFormat(statsData.maxPoints.t2)}</td>
-                <td contenteditable="true" id="t3">${this.cellNumberFormat(statsData.maxPoints.t3)}</td>
-                <td contenteditable="true" id="t4">${this.cellNumberFormat(statsData.maxPoints.t4)}</td>
-                <td contenteditable="true" id="t5">${this.cellNumberFormat(statsData.maxPoints.t5)}</td>
-                <td contenteditable="true" id="d1">${this.cellNumberFormat(statsData.maxPoints.d1)}</td>
-                <td contenteditable="true" id="d2">${this.cellNumberFormat(statsData.maxPoints.d2)}</td>
-                <td contenteditable="true" id="d3">${this.cellNumberFormat(statsData.maxPoints.d3)}</td>
-                <td contenteditable="true" id="d4">${this.cellNumberFormat(statsData.maxPoints.d4)}</td>
-                <td contenteditable="true" id="d5">${this.cellNumberFormat(statsData.maxPoints.d5)}</td>
-                <td contenteditable="true" id="l1">${this.cellNumberFormat(statsData.maxPoints.l1)}</td>
-                <td contenteditable="true" id="l2">${this.cellNumberFormat(statsData.maxPoints.l2)}</td>
-                <td contenteditable="true" id="l3">${this.cellNumberFormat(statsData.maxPoints.l3)}</td>
-                <td contenteditable="true" id="l4">${this.cellNumberFormat(statsData.maxPoints.l4)}</td>
-                <td contenteditable="true" id="l5">${this.cellNumberFormat(statsData.maxPoints.l5)}</td>
-                <td contenteditable="true" id="k1r">${this.cellNumberFormat(statsData.maxPoints.k1r)}</td>
-                <td contenteditable="true" id="k1p">${this.cellNumberFormat(statsData.maxPoints.k1p)}</td>
-                <td contenteditable="true" id="k2r">${this.cellNumberFormat(statsData.maxPoints.k2r)}</td>
-                <td contenteditable="true" id="k2p">${this.cellNumberFormat(statsData.maxPoints.k2p)}</td>
-                <td contenteditable="true" id="regular">${this.cellNumberFormat(statsData.maxPoints.regular)}</td>
-                <td contenteditable="true" id="corrective">${this.cellNumberFormat(statsData.maxPoints.corrective)}</td>
-                <td contenteditable="true" id="t">${this.cellNumberFormat(statsData.maxPoints.t)}</td>
-                <td contenteditable="true" id="homeworks">${this.cellNumberFormat(statsData.maxPoints.homeworks)}</td>
-                <td contenteditable="true" id="labs">${this.cellNumberFormat(statsData.maxPoints.labs)}</td>
-                <td contenteditable="true" id="k1">${this.cellNumberFormat(statsData.maxPoints.k1)}</td>
-                <td contenteditable="true" id="k2">${this.cellNumberFormat(statsData.maxPoints.k2)}</td>
-                <td contenteditable="true" id="dkl">${this.cellNumberFormat(statsData.maxPoints.dkl)}</td>
-                <td contenteditable="true" id="exam">${this.cellNumberFormat(statsData.maxPoints.exam)}</td>
-                <td contenteditable="true" id="sum"></td>
-                <td  id="mark"></td>
+                <td id="t1">${this.cellNumberFormat(statsData.maxPoints.t1)}</td>
+                <td id="t2">${this.cellNumberFormat(statsData.maxPoints.t2)}</td>
+                <td id="t3">${this.cellNumberFormat(statsData.maxPoints.t3)}</td>
+                <td id="t4">${this.cellNumberFormat(statsData.maxPoints.t4)}</td>
+                <td id="t5">${this.cellNumberFormat(statsData.maxPoints.t5)}</td>
+                <td id="d1">${this.cellNumberFormat(statsData.maxPoints.d1)}</td>
+                <td id="d2">${this.cellNumberFormat(statsData.maxPoints.d2)}</td>
+                <td id="d3">${this.cellNumberFormat(statsData.maxPoints.d3)}</td>
+                <td id="d4">${this.cellNumberFormat(statsData.maxPoints.d4)}</td>
+                <td id="d5">${this.cellNumberFormat(statsData.maxPoints.d5)}</td>
+                <td id="l1">${this.cellNumberFormat(statsData.maxPoints.l1)}</td>
+                <td id="l2">${this.cellNumberFormat(statsData.maxPoints.l2)}</td>
+                <td id="l3">${this.cellNumberFormat(statsData.maxPoints.l3)}</td>
+                <td id="l4">${this.cellNumberFormat(statsData.maxPoints.l4)}</td>
+                <td id="l5">${this.cellNumberFormat(statsData.maxPoints.l5)}</td>
+                <td id="k1r">${this.cellNumberFormat(statsData.maxPoints.k1r)}</td>
+                <td id="k1p">${this.cellNumberFormat(statsData.maxPoints.k1p)}</td>
+                <td id="k2r">${this.cellNumberFormat(statsData.maxPoints.k2r)}</td>
+                <td id="k2p">${this.cellNumberFormat(statsData.maxPoints.k2p)}</td>
+                <td id="regular">${this.cellNumberFormat(statsData.maxPoints.regular)}</td>
+                <td id="corrective">${this.cellNumberFormat(statsData.maxPoints.corrective)}</td>
+                <td id="t">${this.cellNumberFormat(statsData.maxPoints.t)}</td>
+                <td id="homeworks">${this.cellNumberFormat(statsData.maxPoints.homeworks)}</td>
+                <td id="labs">${this.cellNumberFormat(statsData.maxPoints.labs)}</td>
+                <td id="k1">${this.cellNumberFormat(statsData.maxPoints.k1)}</td>
+                <td id="k2">${this.cellNumberFormat(statsData.maxPoints.k2)}</td>
+                <td id="dkl">${this.cellNumberFormat(statsData.maxPoints.dkl)}</td>
+                <td id="exam">${this.cellNumberFormat(statsData.maxPoints.regular)}</td>
+                <td id="sum">100</td>
+                <td id="mark"></td>
             </tr>
 
             <tr class="tr tableRow average">
@@ -1670,7 +1671,7 @@ class Parameters {
         `;
         table.innerHTML = template
     };
-    // nested funckto
+    // nested functions
     // Chart
     currentStatisticsChart(statsData) {
         
@@ -1780,7 +1781,15 @@ class Parameters {
         
         if(students && students.length) {
             students.forEach((student, index) => {
-                const studentAsPayload = Object.entries(student);
+                // console.log('student', student);
+                for(property in student) {
+                    if(student[property] === '') {
+                        student[property] = '0'
+                    }
+                }
+                let studentAsPayload = Object.entries(student);
+                studentAsPayload = '`' + studentAsPayload + '`';
+                // let studentAsPayload = JSON.stringify(student);
                 // template
                 let template = `
                 <h5 class="form__name">${student.name} - ${student.index}</h5>
@@ -1792,7 +1801,7 @@ class Parameters {
                     </div>
                     <div class="col-5 form__btn">
                         <button 
-                            onClick="gradedStudent('${studentAsPayload}', '${index}')" 
+                            onClick="gradedStudent(${studentAsPayload}, '${index}')" 
                             type="button"
                             class="btn btn-secondary"
                         >Dodati</button>

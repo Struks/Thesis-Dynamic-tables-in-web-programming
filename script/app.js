@@ -91,8 +91,11 @@ async function updateStudent(btn) {
         const id = row.children[i].id;
         
         if(row.children[i].className != 'removeAddRow') {
-            if(id === 'number') payload[id] = Number(row.children[i].innerText);
-            else payload[id] = row.children[i].innerText;
+            if(id === 'number') {
+                payload[id] = Number(row.children[i].innerText);
+            } else {
+                payload[id] = row.children[i].innerText;  
+            } 
             // dodajemo novi properti koji je zapravo id dokumenta u firebase tabeli
             payload.id = row.classList[row.classList.length - 1];
         }
@@ -424,9 +427,10 @@ function convertToPdf() {
                 }
                 table {
                     border: 1px solid #dee2e6;
-                    width: 100%;
+                    // width: 100%;
                     margin-bottom: 1rem;
                     color: #212529;
+                    border-collapse: collapse;
                 }
                 table tr:nth-of-type(odd) {
                     background-color: rgba(0,0,0,.05);
@@ -437,8 +441,8 @@ function convertToPdf() {
                 }
                 table td, table th {
                     text-align: center;
-                    // border: 1px dashed #dee2e6;
-                    padding: 2px;
+                    border: 1.5px solid #dee2e6;
+                    padding: 2px 4px;
                     vertical-align: middle !important;
                 }
                 h5 {
@@ -603,7 +607,7 @@ function addGroup(kind) {
     }
 };
 function closeGroup(btn) {
-    let groupsIdentify = document.querySelector('.differentGroupsTest').children.length ? document.querySelector('.differentGroupsTest') : document.querySelector('.differentGroupsExam');
+    let groupsIdentify = document.querySelector('.differentGroupsExam').children.length ? document.querySelector('.differentGroupsExam') : document.querySelector('.differentGroupsExam');
     const groups = groupsIdentify ? groupsIdentify : null; 
     const group = btn.parentNode.parentNode;
     try {
@@ -647,11 +651,12 @@ function saveEvaluations(tableClass) {
 function writeRemainingSourceInfo(event) {
     // ideja jeste da se na Enter snimaju podaci
     if(event && event.key === 'Enter') {
+        const path = event.path || (event.composedPath && event.composedPath());
         // definisanje vrijednosti koja je upisana i inputa u kojem je ta vrijednost upisana
         event.preventDefault();
-        const value = event.path[0].textContent;
-        const input = event.path[1].id;
-        event.path[0].innerHTML = value;
+        const value = path[0].textContent;
+        const input = path[1].id;
+        path[0].innerHTML = value;
 
         // upisivanje vrijednosti u local storage 
         if(localStorage.getItem('sourceInfo')) {
@@ -764,13 +769,16 @@ async function getSourcesList() {
 //* GET XML file 
 // odababir predmeta i upravljanje ocjenama studenata iz izabranog predmeta
 function chooseSource(sourceUrl) {
-    // ? https://www.c-sharpcorner.com/blogs/get-data-from-xml-content-using-javascript
-
-    const DOMAIN_CROSS = "https://the-ultimate-api-challenge.herokuapp.com"
-
     // set loader true
     document.querySelector('.table-page-loader').style.display = 'flex';
-    document.querySelector('.global-content').style.display = 'none';    
+    document.querySelector('.global-content').style.display = 'none';
+    // zatvaramo modal
+    $('#student-services').modal('toggle');
+    $('#student-services').modal('hide');
+
+    // ? https://www.c-sharpcorner.com/blogs/get-data-from-xml-content-using-javascript
+
+    const DOMAIN_CROSS = "https://the-ultimate-api-challenge.herokuapp.com"   
 
     // xml http request
     const xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -806,8 +814,8 @@ function chooseSource(sourceUrl) {
     // u slucaju da xml DOM ima regularan sadrzaj 
     else {
         // zatvaramo modal
-        $('#student-services').modal('toggle');
-        $('#student-services').modal('hide');
+        // $('#student-services').modal('toggle');
+        // $('#student-services').modal('hide');
         
         const details = xdoc.getElementsByTagName('Worksheet')[0];
         const tables = xdoc.getElementsByTagName('Worksheet')[1];
@@ -822,12 +830,7 @@ function chooseSource(sourceUrl) {
             
             setTimeout(() => {
                 // nakon dodavanja studenata u bazu idemo na tabelu gdje ce se studenti upisati u nju.
-                window.location.href = '/parameters.html';
-
-                // set loader false
-                document.querySelector('.table-page-loader').style.display = 'none';
-                document.querySelector('.global-content').style.display = 'block';
-                
+                window.location.href = '/parameters.html';     
             }, 1000);
             
         });
@@ -926,7 +929,8 @@ async function studentSearch() {
     
 }
 //* metoda za ocjenu studenta po izabranoj koloni
-async function gradedStudent(student, index) {
+async function gradedStudent(student, index ) {
+    // console.log(student, index);
     // Varijable
     // pravimo basic objekat za studenta
     let arrayOfProps =  student.split(',');
@@ -1077,6 +1081,7 @@ function addEventListener() {
                 //* Statistics table
                 // kalkulacija statistike vezane za tabelu
                 const tableStatsCalc = calculation.statisticTable(response);
+                console.log('tableStatsCalc', tableStatsCalc);
                 //load statistics table
                 parameters.currentStatisticsTable(statisticsTable, tableStatsCalc);
                 // setujemo prikaz kolona u glavnoj tabeli
@@ -1197,25 +1202,57 @@ function addEventListener() {
         
         //? Na promjenu vrijednosti kolone glavne tabele
         document.addEventListener('keyup', event => {
-            if(event.key !== 'Enter' && event.key !== " " && event.path[0].contentEditable === 'true') { // u slucaju da nije pritisnut enter
-                console.log(event.key);
+            //? https://stackoverflow.com/questions/39245488/event-path-is-undefined-running-in-firefox
+            const path = event.path || (event.composedPath && event.composedPath());
+            
+            if(event.key !== 'Enter' && event.key !== "" && path[0].contentEditable === 'true') { // u slucaju da nije pritisnut enter
+                //* Prilikom prelaska na praznu ćeliju TAB dugmetom eliminiseno curosel koji je na pogresnoj poziciji
+                if(event.key === 'Tab') {
+                    if(path[0].id !== 'name' && !path[0].innerHTML && path[0].attributes['contenteditable']) {
+                        path[0].innerHTML = " ";
+                        console.log(path[0].innerHTML);
+                        // select
+                        const selection = window.getSelection();
+                        const range = document.createRange();
+                        range.selectNodeContents(path[0]);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        
+                    }
+                }
+                
                 // uklanjanje 'UKLONI' buttona
                 // ako nova vrsta za dodavanje studenta, onda ADD btn ostaje
-                const childElementCount = event.path[1].childElementCount;
-                const addBtnStatus = event.path[1].children[childElementCount - 1].children[0].children[1];
-                if(addBtnStatus.style.display === 'none') parameters.setRowButton(event.path[1], 'update'); 
+                const childElementCount = path[1].childElementCount;
+                const addBtnStatus = path[1].children[childElementCount - 1].children[0].children[1];
+                if(addBtnStatus.style.display === 'none') parameters.setRowButton(path[1], 'update'); 
 
 
                 store.queryEvaluationPoints().then(response => {
                     // konacni rezultati
-                    const studentResults = calculation.studentResults(event.path[1], response); 
+                    const studentResults = calculation.studentResults(path[1], response); 
         
                     // upisivanje rezultata u tabelu 
-                    parameters.writeStudentResults(studentResults, event.path[1]) 
+                    parameters.writeStudentResults(studentResults, path[1]) 
                 })
     
             }
-        }, false)
+        }, false);
+        //* Prilikom klika na praznu ćeliju eliminiseno curosel koji je na pogresnoj poziciji
+        document.getElementById('primary-table').addEventListener('click', event => {
+            const path = event.path || (event.composedPath && event.composedPath());
+            if(path[0].id !== 'name' && !path[0].innerHTML && path[0].attributes['contenteditable']) {
+                path[0].innerHTML = " ";
+                console.log(path[0].innerHTML);
+                // select
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(path[0]);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                
+            }
+        }, false);
 
         //? Klik na head-kolonu. Sortiranje vrsta po kolonama
         // prolazimo kroz sve kolone head-vrste i setujemo click event za njih
@@ -1226,6 +1263,7 @@ function addEventListener() {
             for(let i = 1; i < headRow.children.length - 1; i++) {
                 let sortIconsDiv = headRow.children[i].children[0].children[0]
                 sortIconsDiv.addEventListener('click', event => {
+                    const path = event.path || (event.composedPath && event.composedPath());
                     // prije novog sorta svim sort ikonicama vratiti defaultnu boju
                     let allIcons = document.getElementsByClassName('bi');
                     Array.from(allIcons).forEach(icon => {
@@ -1233,7 +1271,7 @@ function addEventListener() {
                         icon.style["boxShadow"] = 'unset';
                     });
                     // pronalazimo ikonicu u eventu
-                    const icon = event.path.find(m => m.localName === 'svg');
+                    const icon = path.find(m => m.localName === 'svg');
                     // akitnoj sort ikonici dodijeljuje boju
                     icon.style.fill = '#0B94BA';
                     icon.style["boxShadow"] = "-1px 4px 8px 0px rgba(152,152,152,0.75) inset";
@@ -1242,10 +1280,10 @@ function addEventListener() {
 
                     // ako je akrivan sort u rastucem poretku onda setujemo metodu za opadajuci poredak
                     if(icon.classList[1] && icon.classList[1].includes('down')) {
-                        parameters.sortTable(table, 'asc', targetCol);
+                        parameters.sortTable(table, 'desc', targetCol);
                     } else if(icon.classList[1] && icon.classList[1].includes('up')) {
                         // u svakom drugom slucaju setujemo sort sa uzlaznim poretkom
-                        parameters.sortTable(table, 'desc', targetCol);
+                        parameters.sortTable(table, 'asc', targetCol);
                     }
                 })
             }

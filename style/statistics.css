@@ -26,14 +26,6 @@
     border: 2px solid #F5A3C6;
     z-index: 100;
 }
-.statistics-table .noteParaph {
-    padding-top: 1.5rem;
-    color: #0B94BA;
-}
-.statistics-table .noteParaph span {
-    font-weight: 800;
-    color: #F4A2C5;
-}
 
 /*! Graph Statistics */
 .statistics-charts {
@@ -44,7 +36,8 @@
     margin-bottom: 1.5rem;
 }
 .chart-container .canvasjs-chart-canvas {
-    width: 100%;
+    /* height: 100%; */
+    /* width: auto; */
 }
 
 .statistics-charts .grades-analytics {

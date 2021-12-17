@@ -5,11 +5,11 @@ class Calculation {
         //* index
         let number, year;
         if(studentObject === null) {
-            number = row.querySelector('#number') ? row.querySelector('#number').innerText : '';
+            number = row.querySelector('#number') ? Number(row.querySelector('#number').innerText) : '';
             year = row.querySelector('#year') ? row.querySelector('#year').innerText : '';
 
         } else {
-            number = studentObject.number;
+            number = Number(studentObject.number);
             year = studentObject.year;
         }
         
@@ -77,7 +77,14 @@ class Calculation {
         results.k1p = k1p;
 
         if(k1r || k1p) {
-            const k1 = k1p.length ? k1p : k1r;
+            let k1;
+            if(k1p && k1p.length) {
+                k1 = k1p;
+            } else {
+                k1 = k1r
+            }
+
+            // const k1 = k1p.length ? k1p : k1r;
             results.k1 = k1.toString();
         } else {
             results.k1 = '';
@@ -178,12 +185,16 @@ class Calculation {
         }
 
         //* zbir svih rezultata osim ispita
-        let kolokvijumiNumber = results.kol.length ? Number(results.kol) : 0;
-        let labsNumber = results.labs.length ? Number(results.labs) : 0;
-        let homeworksNumber =  results.homeworks.length ? Number(results.homeworks) : 0;
-        let testsNumber =  results.t.length ? Number(results.t) : 0;
-        const dklZbir =  kolokvijumiNumber + labsNumber + homeworksNumber + testsNumber;
-        results.dkl = dklZbir.toString();
+        let kolokvijumiNumber = results.kol.length ? Number(results.kol) : '';
+        let labsNumber = results.labs.length ? Number(results.labs) : '';
+        let homeworksNumber =  results.homeworks.length ? Number(results.homeworks) : '';
+        let testsNumber =  results.t.length ? Number(results.t) : '';
+        if(kolokvijumiNumber === '' && labsNumber === '' && homeworksNumber === '' && testsNumber === '') {
+            results.dkl = ''
+        } else {
+            const dklZbir =  Number(kolokvijumiNumber) + Number(labsNumber) + Number(homeworksNumber) + Number(testsNumber);
+            results.dkl = dklZbir.toString();
+        }
 
         //* ispit
         let regular, corrective;
@@ -211,13 +222,17 @@ class Calculation {
         }
 
         //* zbir
-        const sum = Number(results.exam) + Number(results.dkl);
-        results.sum = sum.toString();
+        if(results.exam === '' && results.dkl === '') {
+            results.sum = '';
+        } else {
+            const sum = Number(results.exam) + Number(results.dkl);
+            results.sum = sum.toString();
+        }
 
         //* ocjena
         let mark;
         // identifikacija simbola ocjene
-        if(results.sum >= evaluationPoints.evaluationA) {
+        if(Number(results.sum) >= Number(evaluationPoints.evaluationA)) {
             mark = 'A'
         } else if(results.sum >= evaluationPoints.evaluationB) {
             mark = 'B'
@@ -320,6 +335,9 @@ class Calculation {
                             case 'sum':
                                 maxPointsStats[property] = '100';
                                 break;
+                            case 'exam':
+                                maxPoints[property] = '50';
+                                break;
                             default:
                                 maxPointsStats[property] = '';
                         }
@@ -333,15 +351,14 @@ class Calculation {
             } else {
                 maxPointsStats = JSON.parse(localStorage.getItem('maxPointsStats'));
             }
-
             // racunamo broj studenata koji su izlazili na odredjene kolokvijuje, testove i ostale provjere znanja
             Array.from(students).forEach(student => {
                 for(let property in student) {
                     // inicijano broj svake provjere znanja svesti na 0;
                     if(![null, undefined, ''].includes(student[property])) {
                         //* Broj studenata
-                        studentNumber[property] ++;
-                        studentSum[property] += Number(student[property]);
+                        if(student[property] != 0) studentNumber[property] ++;
+                        studentSum[property] += Number(student[property]) || 0;
                         
                         //* Pomocne varijable
                         const percent90 = (90 / 100) * Number(maxPointsStats[property]);
@@ -362,22 +379,23 @@ class Calculation {
             });
             
             //! 2. Ostali stats-i
-
+            console.log('studentSum', studentSum);
             //prolazimo kroz propertije 'studentNumber' objekta kako bi dobili ostale podatke
             for(let property in studentNumber) {
-                if(studentNumber[property] != 0) {
+                if(studentNumber[property] >= 0) {
                     //* Procenat
                     percentage[property] = Math.floor((studentNumber[property] / studentCount) * 100);
                     //* Prosjek
-                    average[property] = parseFloat(studentSum[property]  / studentNumber[property]).toFixed(2);
+                    let averageValue = parseFloat(studentSum[property]  / studentNumber[property]).toFixed(2)
+                    average[property] = averageValue === 'NaN' ? 0 : averageValue;
                     //* Maksimalno bodova
                     maxPoints[property] = maxPointsStats[property];
                     //* Bodova >= 90%
-                    moreThan90perc[property] = Math.floor(countStudents90perc[property] / Number(studentNumber[property]) * 100);
+                    moreThan90perc[property] = Math.floor(countStudents90perc[property] / Number(studentNumber[property]) * 100) || 0;
                     //* Bodova >= 50%
-                    moreThan50perc[property] = Math.floor(countStudents50perc[property] / Number(studentNumber[property]) * 100);
+                    moreThan50perc[property] = Math.floor(countStudents50perc[property] / Number(studentNumber[property]) * 100) || 0;
                     //* Bodova < 10%
-                    lessThan10perc[property] = Math.floor(countStudents10perc[property] / Number(studentNumber[property]) * 100);
+                    lessThan10perc[property] = Math.floor(countStudents10perc[property] / Number(studentNumber[property]) * 100) || 0;
                 } else {
                     percentage[property] = '';
                     average[property] = '';

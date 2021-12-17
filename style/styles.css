@@ -131,10 +131,12 @@ p, li, a, span{
     opacity: .4;
 }
 .home .content {
-    padding-top: 11rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
     height: 100%;
+    justify-content: center;
 }
 .content .header-title {
     margin-bottom: 4rem;
@@ -164,6 +166,9 @@ p, li, a, span{
 }
 .empty-db-message {
     color: #F5A3C6;
+}
+#student-services .modal-footer {
+    justify-content: space-around;
 }
 
 /* loader */
